@@ -1,0 +1,78 @@
+h1 {text-align: center;
+   
+}
+
+a {
+    text-decoration: none;
+}
+
+            p {text-align: center;}
+
+            img {align-self: center;}
+
+            table {text-align: center;
+            margin: auto}
+
+            ul {
+                margin-right: 20;
+                padding: 0;
+                overflow: hidden;
+                background-color: rgb(234, 241, 241);
+
+            }
+            li {float: left;
+                padding-right: 250px;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+#row {
+    color: blue;
+    background-color: red;
+}
+#row2 {
+    color: rgb(0, 238, 255);
+    background-color: rgb(183, 34, 34);
+}
+
+#first_div {
+    background-image: url(Rick\ Astley\ -\ Never\ Gonna\ Give\ You\ Up\ \(Official\ Music\ Video\).jpg);
+    background-size: 100%,100%;
+    width: 1500px;
+    height: 50px;
+    background-repeat: no-repeat;
+
+}
+
+#txt1 {
+    text-align:justify;
+    text-transform: capitalize;
+    
+}
+
+html {
+    height: 100%;
+    position: relative;
+  }
+  
+  body {
+    min-height: 100%;
+    margin-bottom: 100px; /* Adjust this value to match the height of your footer */
+  }
+  
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 99%;
+    height: 100px; /* Adjust this value to set the height of your footer */
+    background-color: rgb(187, 99, 23);
+  }
+
+/*
+letter-spacing: 1px;
+#some_name for id
+.some_name for class
+*/
