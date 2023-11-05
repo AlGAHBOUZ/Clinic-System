@@ -1,0 +1,217 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="me">
+    <meta name="description" content="A random html website">
+    <meta name="keywords" content="Revision, RickRoll, HTML">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="lol_icon.jpg">
+    <title>Add Patient | CareWave</title>
+    <script>
+        function addSession() {
+            // Get values from the form
+            var sessionType = document.getElementById("session-type").value;
+            var sessionPrice = parseFloat(document.getElementById("session-price").value) || 0;
+            var quantity = parseInt(document.getElementById("quantity").value) || 0;
+            var totalPrice = sessionPrice * quantity;
+            var notes = document.getElementById("billing-notes").value; // Updated ID for notes
+            
+            // Create a new row for the table
+            var table = document.getElementById("session-table");
+            var newRow = table.insertRow(table.rows.length);
+            
+            // Insert cells with data
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            
+            cell1.innerHTML = sessionType;
+            cell2.innerHTML = sessionPrice.toFixed(2);
+            cell3.innerHTML = quantity;
+            cell4.innerHTML = totalPrice.toFixed(2);
+            cell5.innerHTML = notes; // Insert notes into the table
+            
+            // Clear the form fields
+            document.getElementById("session-type").value = "";
+            document.getElementById("session-price").value = "";
+            document.getElementById("quantity").value = "";
+            document.getElementById("total-price").value = "";
+            document.getElementById("billing-notes").value = ""; // Clear billing notes
+        }
+        
+        // Function to calculate and update total price
+        function calculateTotal() {
+            var sessionPrice = parseFloat(document.getElementById("session-price").value) || 0;
+            var quantity = parseInt(document.getElementById("quantity").value) || 0;
+            var totalPrice = sessionPrice * quantity;
+            document.getElementById("total-price").value = totalPrice.toFixed(2);
+        }
+        
+        // Add event listeners to update total price when session price or quantity changes
+        document.getElementById("session-price").addEventListener("input", calculateTotal);
+        document.getElementById("quantity").addEventListener("input", calculateTotal);
+    </script>
+    
+    
+    
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: #ffff;">CareWave</a></h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="config.html">Configuration</a>
+        <a href="patients.html">Patients</a>
+        <a href="financing.html">Financing</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <main>
+        <form class="patient-form">
+            <section>
+                <h2>Patient Details</h2>
+            <!-- First Row: Name, Phone Number, Age -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form-item">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-item">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age">
+                </div>
+            </div>
+    
+            <!-- Second Row: Branch, Doctor, Diagnosis -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="branch">Branch:</label>
+                    <select id="branch" name="branch">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="doctor">Doctor:</label>
+                    <select id="doctor" name="doctor">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="diagnosis">Diagnosis:</label>
+                    <select id="diagnosis" name="diagnosis">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- Third Row: Gender, Patient Code, Date -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="patient-code">Patient Code:</label>
+                    <input type="text" id="patient-code" name="patient-code">
+                </div>
+                <div class="form-item">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date">
+                </div>
+            </div>
+    
+            <!-- Fourth Row: General Notes, Session Notes -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="general-notes">General Notes:</label>
+                    <textarea id="general-notes" name="general-notes"></textarea>
+                </div>
+                <div class="form-item">
+                    <label for="session-notes">Session Notes:</label>
+                    <textarea id="session-notes" name="session-notes"></textarea>
+                </div>
+            </div>
+    
+            <!-- Submit Button -->
+            <input type="submit" value="Add Patient">
+            </section>
+            <section>
+                <h2>Sessions and Billing</h2>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="session-type">Session Type:</label>
+                        <select id="session-type" name="session-type">
+                            <option>Session 1</option>
+                            <option>Session 2</option>
+                            <option>Session 3</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="session-price">Session Price:</label>
+                        <input type="number" id="session-price" name="session-price" step="0.01">
+                    </div>
+                    <div class="form-item">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="total-price">Total Price:</label>
+                        <input type="number" id="total-price" name="total-price" step="0.01">
+                    </div>                    
+                    <div class="form-item">
+                        <label for="billing-notes">Session Notes:</label>
+                        <textarea id="billing-notes" name="billing-notes"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <input type="button" value="Add Session" onclick="addSession()">
+                </div>
+            </section>
+
+            <!-- Table to display session details -->
+            <h2>Session Details</h2>
+            <table id="session-table">
+                <thead>
+                    <tr>
+                        <th>Session Type</th>
+                        <th>Session Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Existing session details rows will be added here -->
+                </tbody>
+            </table>
+
+            <!-- Submit Button for Patient Details -->
+            <input type="submit" value="Add Patient">
+        </form>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 CareWave | Address: Somewhere in Cloud Nine 🌩️ | Phone: Call us anytime, we're always here ☎️ | Email: Reach out to us, we love emails! 📧</p>
+    </footer>
+</body>
+</html>
