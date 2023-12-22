@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="me">
+    <meta name="me" content="A random html website">
+    <meta name="keyword" content="Revision, RickRoll, HTML">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="lol_icon.jpg">
+    <style>
+        /* Center the button both horizontally and vertically */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            justify-content: space-between;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #generateReportButton {
+            padding: 16px 24px;
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+            border: none; /* No border */
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+        }
+
+        /* Add hover effect */
+        #generateReportButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <title>Prototype</title>
+</head>
+<body>
+    <header>
+        <h1><a href='' style="color: #ffff;">CareWave</a></h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="patients.html">Patients</a>
+        <a href="financing.html">Financing</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <main>
+        <!-- Add a placeholder for patient listing -->
+        <table id="patientTable">
+            <!-- Your table structure goes here -->
+        </table>
+
+        <!-- Generate Report Button -->
+        <button id="generateReportButton" onclick="generateReport()">Generate Report</button>
+    </main>
+    <footer>
+        <p>&copy; 2023 CareWave | Address: Somewhere in Cloud Nine 🌩️ | Phone: Call us anytime, we're always here ☎️ | Email: Reach out to us, we love emails! 📧</p>
+    </footer>
+ 
+    <!-- Add this script section at the end of your reports.html file -->
+    <script>
+        async function generateReport() {
+            try {
+                const response = await fetch('/generate-reports'); // Updated endpoint without patientId
+                const blob = await response.blob();
+
+                // Create a link and trigger the download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'patient_report.pdf';
+                link.click();
+            } catch (error) {
+                console.error('Error generating report:', error.message);
+                // Handle error if needed
+            }
+        }
+
+        // Function to fetch and populate patient data from the server
+        async function fetchAndPopulatePatients() {
+            try {
+                const response = await fetch('/search-patient?name=');
+                const patients = await response.json();
+
+                // Populate the patient table
+                const table = document.getElementById('patientTable');
+                patients.forEach(patient => {
+                    const row = table.insertRow();
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    const cell3 = row.insertCell(2);
+
+                    cell1.textContent = patient.id;
+                    cell2.textContent = patient.name;
+                });
+            } catch (error) {
+                console.error('Error fetching patients:', error.message);
+            }
+        }
+
+        // Populate the patient table and fetch data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAndPopulatePatients();
+        });
+    </script>
+</body>
+</html>

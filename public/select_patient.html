@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="me">
+    <meta name="description" content="A random html website">
+    <meta name="keywords" content="Revision, RickRoll, HTML">
+    <link rel="icon" href="lol_icon.jpg">
+    <title>Search Patients | CareWave</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Make sure the page takes at least the full height of the viewport */
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        nav a {
+            margin: 0 1em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            margin: auto; /* Center the content horizontally */
+            flex-grow: 1; /* Allow the content to grow to fill the remaining vertical space */
+        }
+
+        section {
+            margin-bottom: 1em;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the items horizontally */
+            padding: 1em;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: center; /* Center the items horizontally */
+            align-items: center; /* Center vertically */
+            margin-bottom: 1em;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the start of the container */
+            margin-bottom: 1em;
+        }
+        
+        .form-item {
+            display: flex;
+            flex-direction: column; /* Stack the label and input vertically */
+            margin-right: 1em;
+        }
+
+        #search-name {
+            align-self: center; 
+            padding: 8px 16px;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-left: 30px;
+        }
+        
+        .form-item button {
+            align-self: center; /* Align the button to the center of the flex item */
+            padding: 8px 16px;
+            font-size: 16px;
+            margin-top: 1em; /* Add some space between the input and the button */
+            margin-left: 30px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.patient-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            searchPatients();
+        });
+    });
+
+    async function searchPatients() {
+        try {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const ageFrom = document.getElementById('age-from').value;
+            const ageTo = document.getElementById('age-to').value;
+            const branch = document.getElementById('branch').value;
+            const diagnosis = document.getElementById('diagnosis').value;
+            const gender = document.getElementById('gender').value;
+            const dateFrom = document.getElementById('date-from').value;
+            const dateTo = document.getElementById('date-to').value;
+    
+            const url = '/search-patient';
+            const data = {
+                name: name !== '' ? name : null,
+                phone: phone !== '' ? phone : null,
+                ageFrom: ageFrom !== '' ? ageFrom : null,
+                ageTo: ageTo !== '' ? ageTo : null,
+                branch: branch !== '' ? branch : null,
+                diagnosis: diagnosis !== '' ? diagnosis : null,
+                gender: gender !== '' ? gender : null,
+                dateFrom: dateFrom !== '' ? dateFrom : null,
+                dateTo: dateTo !== '' ? dateTo : null,
+            };
+            
+            console.log('Request Data:', data);
+    
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const patients = await response.json();
+            displayPatients(patients);
+        } catch (error) {
+            console.error('Error in searchPatients:', error.message);
+        }
+    }
+    
+    async function generateReport() {
+        try {
+            const url = '/generate-reports';
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            // Handle the PDF file as needed (download, display, etc.)
+        } catch (error) {
+            console.error('Error generating report:', error.message);
+        }
+    }
+    
+             
+    function displayPatients(patients) {
+        console.log('Displaying Patients:', patients);  // Log the patients data
+    
+        const tableBody = document.getElementById("patient-table-body");
+        tableBody.innerHTML = "";
+    
+        patients.forEach(patient => {
+            console.log(patient);
+    
+            const row = tableBody.insertRow(tableBody.rows.length);
+
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            
+
+            cell1.innerHTML = patient.PatientID;
+            cell2.innerHTML = patient.patient_name;
+            cell3.innerHTML = patient.PhoneNumber;
+        });
+    }
+</script>
+
+
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: #ffff;">CareWave</a></h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="patients.html">Patients</a>
+        <a href="financing.html">Financing</a>  
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <main>
+        <form class="patient-form" method="post" action="/search-patient">
+
+        <!-- <section class="form-container"> -->
+            <h2>Search for a Patient</h2>
+            <section>            <!-- First Row: Name, Phone Number, Age -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" autocomplete="off">
+                </div>
+                <div class="form-item">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" autocomplete="off">
+                </div>
+                
+            </div>
+    
+            <!-- Second Row: Branch,Diagnosis -->
+            <div class="form-row">
+                <div class="form-item">
+                    <label for="age-from">Age From:</label>
+                    <input type="number" id="age-from" name="age-from" placeholder="From" autocomplete="off">
+                </div>
+                
+                <div class="form-item">
+                    <label for="age-to">Age To:</label>
+                    <input type="number" id="age-to" name="age-to" placeholder="To" autocomplete="off">
+                </div>
+            </div>
+    
+             <!-- Third Row: Branch,Diagnosis -->
+             <div class="form-row">
+                <div class="form-item">
+                    <label for="branch">Branch:</label>
+                    <select id="branch" name="branch" autocomplete="off">
+                        <option value="">Select Branch</option>
+                        <option value="6TH Of October">6TH Of October</option>
+                        <option value="Fifth Setlment">Fifth Settlement</option>
+                        <option value="Giza">Giza</option>
+                    </select>
+                </div>
+            
+                <div class="form-item">
+                    <label for="diagnosis">Diagnosis:</label>
+                    <select id="diagnosis" name="diagnosis" autocomplete="off">
+                        <option value="">Select Diagnosis</option>
+                        <option value="Dead">Dead</option>
+                        <option value="Shark infection">Shark infection</option>
+                        <option value="SIMP">SIMP</option>
+                    </select>
+                </div>
+            </div>
+            
+                <div class="form-item">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" autocomplete="off">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="date-from">Date From:</label>
+                        <input type="date" id="date-from" name="date-from" autocomplete="off">
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="date-to">Date To:</label>
+                        <input type="date" id="date-to" name="date-to" autocomplete="off">
+                    </div>
+                    
+        
+            <!-- Submit Button -->
+            <input type="submit" value="Search Patient">
+            </section>
+
+          </form>
+<!-- <section> -->
+    <h2 style="text-align: center;">Search Results</h2>
+    <table id="patient-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Branch</th> 
+                <th>Diagnosis</th>
+                
+            </tr>
+        </thead>
+        <tbody id="patient-table-body">
+            <!-- Search results will be displayed here -->
+        </tbody>
+    </table>
+
+
+    <button id="generateReportButton" onclick="generateReport()">Generate Report</button>
+</section>
+
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 CareWave | Address: Somewhere in Cloud Nine 🌩️ | Phone: Call us anytime, we're always here ☎️ | Email: Reach out to us, we love emails! 📧</p>
+    </footer>
+</body>
+</html>

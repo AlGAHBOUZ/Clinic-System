@@ -1,0 +1,267 @@
+
+
+a { text-decoration: none;}
+
+body {
+    background: #1D2023;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #222222;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+nav {
+    background-color: #333333;
+    text-align: center;
+    padding: 10px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    margin: 0 20px;
+    font-size: 18px;
+}
+
+main {
+    flex-grow: 1;
+    /* Add your main content styles here */
+}
+
+footer {
+    background-color: #222222;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Add this CSS to make the text fill the page */
+.not-ready {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.not-ready p {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Add this CSS to style the page boxes */
+.page-box {
+    width: 200px;
+    height: 200px;
+    background-color: #333333;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s, font-size 0.3s;
+}
+
+.page-box:hover {
+    background-color: #555555;
+    transform: scale(1.1); /* Enlarge on hover */
+    border-radius: 25%; /* Make more circular on hover */
+    font-size: 22px; /* Increase text size on hover */
+}
+
+.homepage {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-box a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+@keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .animated-background {
+    animation: gradient 10s ease infinite;
+    background: linear-gradient(-45deg, #003973,#0082c8);
+    background-size: 400% 400%;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+/*Patients & add-patient*/
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the form */
+.patient-form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #346497;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Flex container for form rows */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+/* Flex items for labels and inputs/selects/textarea */
+.form-item {
+    flex: 1;
+    min-width: calc(33.33% - 10px); /* Adjusted width for three items per row */
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.form-item:last-child {
+    margin-right: 0;
+}
+
+/* Style the form fields */
+.patient-form label,
+.patient-form input,
+.patient-form select,
+.patient-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.patient-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: auto;
+    padding: 12px 20px;
+}
+
+.patient-form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Style the form field backgrounds */
+.patient-form input[type="text"],
+.patient-form input[type="number"],
+.patient-form input[type="tel"],
+.patient-form input[type="date"],
+.patient-form select,
+.patient-form textarea {
+    background-color: #e8ebed;
+}
+
+/* Improve the layout for each form-item */
+.patient-form .form-item label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Add some hover effects on inputs for better user experience */
+.patient-form input[type="text"]:hover,
+.patient-form input[type="number"]:hover,
+.patient-form input[type="tel"]:hover,
+.patient-form input[type="date"]:hover,
+.patient-form select:hover,
+.patient-form textarea:hover {
+    background-color: #d1d5da;
+}
+
+/* Adjust form layout on smaller screens */
+@media (max-width: 767px) {
+    .form-item {
+        min-width: 100%; /* Display one field per row on smaller screens */
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+}
+
+/* Additional CSS for session details table */
+#session-table {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+#session-table th,
+#session-table td {
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #ccc;
+}
+
+#session-table th {
+    background-color: #346497;
+    color: white;
+}
+
+#session-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#session-table tbody tr:hover {
+    background-color: #e0e0e0;
+}

@@ -1,0 +1,65 @@
+body {
+    background-image: url('images/img.jpg'); /* Replace with the path to your background image */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+.title {
+    color: #fff;
+}
+
+.circle-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+main {
+    flex-grow: 1;
+    margin-top: 50px; /* Adjust margin-top as needed */
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row; /* Display links horizontally */
+    margin-right: 10px; /* Add margin to the right */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+footer {
+    background-color: #222222;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto;
+}
+
+.contact-info {
+    color: #fff;
+}

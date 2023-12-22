@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name = "author" content="me">
+        <meta name = "me" content="A random html website">
+        <meta name = "keyword" content = "Revision, RickRoll, HTML">
+        <link href="style.css" rel="stylesheet">
+        <link rel="icon" href="lol_icon.jpg">
+        <title>Prototype</title>
+</head>
+<body>
+    <header>
+        <h1><a href='' style="color: #ffff;">CareWave</a></h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+    
+        <a href="patients.html">Patients</a>
+        <a href="financing.html">Financing</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <main>
+        <!-- Add a placeholder for patient listing -->
+        <table id="patientTable">
+            <!-- Your table structure goes here -->
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2023 CareWave | Address: Somewhere in Cloud Nine 🌩️ | Phone: Call us anytime, we're always here ☎️ | Email: Reach out to us, we love emails! 📧</p>
+    </footer>
+ 
+    <!-- Add this script section at the end of your reports.html file -->
+    <script>
+        async function generateReport(patientId) {
+            try {
+                const response = await fetch(`/generate-report/${patientId}`);
+                const blob = await response.blob();
+ 
+                // Create a link and trigger the download
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'patient_report.pdf';
+                link.click();
+            } catch (error) {
+                console.error('Error generating report:', error.message);
+                // Handle error if needed
+            }
+        }
+ 
+        // Replace this part with actual patient data from your server
+        const patients = [
+            { id: 1, name: 'John Doe' },
+            // Add more patients as needed
+        ];
+ 
+        // Function to populate the patient table
+        function populatePatientTable() {
+            const table = document.getElementById('patientTable');
+ 
+            patients.forEach(patient => {
+                const row = table.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+ 
+                cell1.textContent = patient.id;
+                cell2.textContent = patient.name;
+ 
+                const generateReportButton = document.createElement('button');
+                generateReportButton.textContent = 'Generate Report';
+                generateReportButton.addEventListener('click', () => generateReport(patient.id));
+ 
+                cell3.appendChild(generateReportButton);
+            });
+        }
+ 
+        // Populate the patient table on page load
+        document.addEventListener('DOMContentLoaded', populatePatientTable);
+    </script>
+</body>
+</html
