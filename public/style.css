@@ -265,3 +265,97 @@ footer {
 #session-table tbody tr:hover {
     background-color: #e0e0e0;
 }
+
+/* Style the form for adding employees */
+.employee-form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #346497;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Flex container for form rows */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+/* Flex items for labels and inputs/selects/textarea */
+.form-item {
+    flex: 1;
+    min-width: calc(33.33% - 10px); /* Adjusted width for three items per row */
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.form-item:last-child {
+    margin-right: 0;
+}
+
+/* Style the form fields for employees */
+.employee-form label,
+.employee-form input,
+.employee-form select,
+.employee-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.employee-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: auto;
+    padding: 12px 20px;
+}
+
+.employee-form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Style the form field backgrounds for employees */
+.employee-form input[type="text"],
+.employee-form input[type="number"],
+.employee-form input[type="tel"],
+.employee-form input[type="date"],
+.employee-form select,
+.employee-form textarea {
+    background-color: #e8ebed;
+}
+
+/* Improve the layout for each form-item for employees */
+.employee-form .form-item label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Add some hover effects on inputs for better user experience for employees */
+.employee-form input[type="text"]:hover,
+.employee-form input[type="number"]:hover,
+.employee-form input[type="tel"]:hover,
+.employee-form input[type="date"]:hover,
+.employee-form select:hover,
+.employee-form textarea:hover {
+    background-color: #d1d5da;
+}
+
+/* Adjust form layout on smaller screens for employees */
+@media (max-width: 767px) {
+    .form-item {
+        min-width: 100%; /* Display one field per row on smaller screens */
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+}

@@ -11,7 +11,6 @@ CREATE TABLE Patients (
     diagnosis VARCHAR(50),
     gender VARCHAR(10),
     general_notes TEXT,
-    session_notes TEXT
 );
 
 CREATE TABLE Patient_Numbers(

@@ -47,12 +47,15 @@
             margin-bottom: 1em;
         }
 
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center the items horizontally */
-            padding: 1em;
+        .patient-form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #346497;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        
 
         .form-row {
             display: flex;
@@ -105,6 +108,14 @@
             background-color: #4CAF50;
             color: white;
         }
+
+        @media (max-width: 767px) {
+            .form-item {
+                min-width: 100%; /* Display one field per row on smaller screens */
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
+        }
     </style>
 
 
@@ -141,7 +152,7 @@
                 dateTo: dateTo !== '' ? dateTo : null,
             };
             
-            console.log('Request Data:', data);
+           
     
             const response = await fetch(url, {
                 method: 'POST',
@@ -162,29 +173,42 @@
         }
     }
     
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('generateReportButton').addEventListener('click', function () {
+            generateReport();
+        });
+    });
+
+    
     async function generateReport() {
         try {
             const url = '/generate-reports';
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const params = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                ageFrom: document.getElementById('age-from').value,
+                ageTo: document.getElementById('age-to').value,
+                branch: document.getElementById('branch').value,
+                diagnosis: document.getElementById('diagnosis').value,
+                gender: document.getElementById('gender').value,
+                dateFrom: document.getElementById('date-from').value,
+                dateTo: document.getElementById('date-to').value,
+            };
     
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            const queryParams = new URLSearchParams(params).toString();
+            const downloadUrl = `${url}?${queryParams}`;
+            
+            // Open the download URL in a new window
+            window.open(downloadUrl, '_blank');
     
-            // Handle the PDF file as needed (download, display, etc.)
         } catch (error) {
             console.error('Error generating report:', error.message);
         }
     }
+
     
-             
     function displayPatients(patients) {
-        console.log('Displaying Patients:', patients);  // Log the patients data
+       
     
         const tableBody = document.getElementById("patient-table-body");
         tableBody.innerHTML = "";
@@ -215,8 +239,7 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="patients.html">Patients</a>
-        <a href="financing.html">Financing</a>  
-        <a href="reports.html">Reports</a>
+ 
         <a href="settings.html">Settings</a>
     </nav>
     <main>
@@ -306,10 +329,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Phone Number</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Branch</th> 
-                <th>Diagnosis</th>
+    
                 
             </tr>
         </thead>

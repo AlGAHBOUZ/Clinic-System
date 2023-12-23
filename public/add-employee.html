@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="me">
+    <meta name="description" content="A random html website">
+    <meta name="keywords" content="Revision, RickRoll, HTML">
+    <link href="style.css" rel="stylesheet">
+    <link rel="icon" href="lol_icon.jpg">
+    <title>Add Employee | CareWave</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successParam = urlParams.get('success');
+        });
+        
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: #ffff;">CareWave</a></h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="patients.html">Patients</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <main>
+        <form class="employee-form" method="post" action="/add-employee">
+            <section>
+                <h2>Employee Details</h2>
+                <!-- Employee Form Fields -->
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-item">
+                        <label for="age">Age:</label>
+                        <input type="number" id="age" name="age">
+                    </div>
+                    <div class="form-item">
+                        <label for="salaryType">Salary Type:</label>
+                        <select id="salaryType" name="salaryType">
+                            <option value="">Select Salary Type:</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="salary-amount">Salary Amount:</label>
+                        <input type="number" id="salary-amount" name="salaryAmount">
+                    </div>
+                
+                    <div class="form-item">
+                        <label for="notes">Notes:</label>
+                        <textarea id="notes" name="notes"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phoneNumber">
+                    </div>
+                    <div class="form-item">
+                        <label for="user-name">User Name:</label>
+                        <input type="text" id="user-name" name="userName">
+                    </div>
+                    <div class="form-item">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="branch">Branch:</label>
+                        <select id="branch" name="branch">
+                            <option value="">Select Branch</option>
+                            <option value="6TH Of October">6TH Of October</option>
+                            <option value="Fifth Setlment">Fifth Settlement</option>
+                            <option value="Giza">Giza</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-item">
+                        <label for="role">Role:</label>
+                        <select id="role" name="role">
+                            <option value="">Select Role</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Nurse">Nurse</option>
+                            <option value="Receptionist">Receptionist</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <input type="submit" value="Add Employee">
+
+            </section>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 CareWave | Address: Somewhere in Cloud Nine 🌩️ | Phone: Call us anytime, we're always here ☎️ | Email: Reach out to us, we love emails! 📧</p>
+    </footer>
+</body>
+</html>

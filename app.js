@@ -34,17 +34,37 @@ app.use(express.json()); // Add this line to parse JSON-encoded bodies
 app.use(express.static('public'));
 
 app.post('/add-patient', async (req, res) => {
-    const { name, phone, age, branch, diagnosis, gender, generalNotes, sessionNotes, doctorId, date } = req.body;
+    const { name, phone, age, branch, diagnosis, gender, generalNotes, doctorId} = req.body;
 
     try {
         await sql.connect(config);
 
         const result = await sql.query`
-            INSERT INTO Patients (patient_name, PhoneNumber, age, gender, general_notes, session_notes, DoctorID, time_stamp, BranchName, diagnosis)
-            VALUES(${name}, ${phone}, ${age}, ${gender}, ${generalNotes}, ${sessionNotes}, ${doctorId}, ${date}, ${branch}, ${diagnosis})
+            INSERT INTO Patients (patient_name, PhoneNumber, age, gender, general_notes,  DoctorID, time_stamp, BranchName, diagnosis)
+            VALUES(${name}, ${phone}, ${age}, ${gender}, ${generalNotes},  ${doctorId}, GETDATE(), ${branch}, ${diagnosis})
         `;
 
-        res.redirect('/add-patient.html?success=true'); // Redirect to add-patient.html with success=true
+        res.redirect('/add-employee.html?success=true'); // Redirect to add-patient.html with success=true
+    } catch (error) {
+        console.error('Error inserting data:', error.message);
+        res.send('Error inserting data');
+    } finally {
+        await sql.close();
+    }
+});
+
+
+app.post('/add-employee', async (req, res) => {
+    const { name, age, salaryType, salaryAmount, notes, phoneNumber, userName, password, branch, role} = req.body
+
+    try {
+        await sql.connect(config);
+
+        const result = await sql.query`
+        INSERT INTO Employees (name, age, salary_type, salary_amount, notes, PhoneNumber, User_name, Password, BranchName, Role)
+        VALUES(${name}, ${age}, ${salaryType}, ${salaryAmount}, ${notes}, ${phoneNumber}, ${userName}, ${password}, ${branch}, ${role})
+        `;
+        res.redirect('/add-employee.html?success=true'); // Redirect to add-patient.html with success=true
     } catch (error) {
         console.error('Error inserting data:', error.message);
         res.send('Error inserting data');
@@ -74,7 +94,7 @@ app.post('/search-patient', async (req, res) => {
 
         const patients = result.recordset;
 
-        console.log('Patients Returned:', patients);  // Log the patients data
+    
 
         res.json(patients);
     } catch (error) {
@@ -89,14 +109,28 @@ app.post('/search-patient', async (req, res) => {
 
 app.get('/generate-reports', async (req, res) => {
     try {
+        // Retrieve query parameters from the request URL
+        const { name, phone, ageFrom, ageTo, gender, branch, diagnosis, dateFrom, dateTo } = req.query;
+
         await sql.connect(config);
 
-        const result = await sql.query`EXEC select_all`;
+        const result = await sql.query`EXEC filter_patient 
+            @name = ${name !== '' ? name : null},
+            @PhoneNumber = ${phone !== '' ? phone : null},
+            @age_from = ${ageFrom !== '' ? ageFrom : null},
+            @age_to = ${ageTo !== '' ? ageTo : null},
+            @gender = ${gender !== '' ? gender : null},
+            @branch = ${branch !== '' ? branch : null},
+            @diagnosis = ${diagnosis !== '' ? diagnosis : null},
+            @date_from = ${dateFrom !== '' ? dateFrom : null},
+            @date_to = ${dateTo !== '' ? dateTo : null}`;
+
         const patients = result.recordset;
 
+        // Create a PDF document
         const doc = new PDFDocument();
 
-        // Customize your PDF content here based on the patient data
+        // Customize your PDF content here based on the filtered patient data
         for (const patient of patients) {
             doc.fontSize(16).text(`Patient Name: ${patient.patient_name}`);
             doc.fontSize(16).text(`Phone Number: ${patient.PhoneNumber}`);
@@ -121,6 +155,7 @@ app.get('/generate-reports', async (req, res) => {
         await sql.close();
     }
 });
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
